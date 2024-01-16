@@ -16,21 +16,25 @@ function Quiz(props) {
 
             <div id="quizAnswers">
               <div
-                className="answer"
+                className={props.answers && props.answers[0] == props.selectedAnswer ? 'answer selected' : 'answer'}
                 onClick={(e) => props.selectAnswer(props.answers[0], e)}
               >
                 {props.answers && props.answers[0] ? props.answers[0].text : ''}
-                <button>
+                <button
+                  onClick={(e) => props.selectAnswer(props.answers[0], e)}
+                >
                   {props.answers && props.answers[0] == props.selectedAnswer ? 'Selected': 'Select'}
                 </button>
               </div>
 
               <div
-                className="answer"
+                className={props.answers && props.answers[1] == props.selectedAnswer ? 'answer selected' : 'answer'}
                 onClick={(e) => props.selectAnswer(props.answers[1], e)}
               >
                 {props.answers && props.answers[1] ? props.answers[1].text : ''}
-                <button>
+                <button
+                  onClick={(e) => props.selectAnswer(props.answers[1], e)}
+                >
                   {props.answers && props.answers[1] == props.selectedAnswer ? 'Selected': 'Select'}
                 </button>
               </div>

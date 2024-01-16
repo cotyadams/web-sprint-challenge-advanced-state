@@ -20,8 +20,6 @@ export function moveCounterClockwise(i) {
 }
 
 export function selectAnswer(selectedAnswer, e) { 
-  if (document.querySelector('.selected')) document.querySelector('.selected').classList.remove('selected')
-  e.target.classList.add('selected')
   return {type: SET_SELECTED_ANSWER, payload: selectedAnswer}
 }
 
