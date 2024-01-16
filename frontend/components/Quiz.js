@@ -23,7 +23,7 @@ function Quiz(props) {
                 <button
                   onClick={(e) => props.selectAnswer(props.answers[0], e)}
                 >
-                  {props.answers && props.answers[0] == props.selectedAnswer ? 'Selected': 'Select'}
+                  {props.answers && props.answers[0] == props.selectedAnswer ? 'SELECTED': 'Select'}
                 </button>
               </div>
 
@@ -35,7 +35,7 @@ function Quiz(props) {
                 <button
                   onClick={(e) => props.selectAnswer(props.answers[1], e)}
                 >
-                  {props.answers && props.answers[1] == props.selectedAnswer ? 'Selected': 'Select'}
+                  {props.answers && props.answers[1] == props.selectedAnswer ? 'SELECTED': 'Select'}
                 </button>
               </div>
             </div>

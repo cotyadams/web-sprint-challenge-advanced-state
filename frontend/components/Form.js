@@ -37,7 +37,10 @@ export function Form(props) {
         placeholder="Enter false answer"
         value={props.newFalseAnswer}
       />
-      <button id="submitNewQuizBtn" type='submit' disabled={!(props.newFalseAnswer && props.newTrueAnswer && props.newQuestion)}>Submit new quiz</button>
+      <button
+        id="submitNewQuizBtn"
+        type='submit'
+        disabled={!(props.newFalseAnswer.trim() && props.newTrueAnswer.trim() && props.newQuestion.trim())}>Submit new quiz</button>
     </form>
   )
 }
