@@ -1,34 +1,58 @@
 import React from 'react'
-
-export default function Quiz(props) {
+import { connect } from 'react-redux';
+import { selectAnswer, fetchQuiz, postAnswer } from '../state/action-creators';
+function Quiz(props) {
+  console.log(props)
+  if (!props.quiz_id) {
+    props.fetchQuiz();
+  }
   return (
     <div id="wrapper">
       {
         // quiz already in state? Let's use that, otherwise render "Loading next quiz..."
-        true ? (
+        !props.isFetching ? (
           <>
-            <h2>What is a closure?</h2>
+            <h2>{props.question}</h2>
 
             <div id="quizAnswers">
-              <div className="answer selected">
-                A function
+              <div
+                className="answer selected"
+                onClick={() => props.selectAnswer(props.answers[0])}
+              >
+                {props.answers && props.answers[0] ? props.answers[0].text : ''}
                 <button>
-                  SELECTED
+                  {props.answers && props.answers[0] == props.selectedAnswer ? 'Selected': 'Select'}
                 </button>
               </div>
 
-              <div className="answer">
-                An elephant
+              <div
+                className="answer"
+                onClick={() => props.selectAnswer(props.answers[1])}
+              >
+                {props.answers && props.answers[1] ? props.answers[1].text : ''}
                 <button>
-                  Select
+                  {props.answers && props.answers[1] == props.selectedAnswer ? 'Selected': 'Select'}
                 </button>
               </div>
             </div>
 
-            <button id="submitAnswerBtn">Submit answer</button>
+            <button
+              id="submitAnswerBtn"
+            onClick={() => props.postAnswer(props.selectedAnswer.answer_id, props.quiz_id)}>Submit answer</button>
           </>
         ) : 'Loading next quiz...'
       }
     </div>
   )
 }
+const mapStateToProps = (state) => {
+  return {
+    isFetching: state.quiz.isFetching,
+    question: state.quiz.question,
+    quiz_id: state.quiz.quiz_id,
+    answers: state.quiz.answers,
+    infoMessage: state.infoMessage,
+    selectedAnswer: state.quiz.selectedAnswer
+  }
+}
+export default connect(mapStateToProps, {selectAnswer, fetchQuiz, postAnswer})(Quiz)
