@@ -16,7 +16,7 @@ function Quiz(props) {
 
             <div id="quizAnswers">
               <div
-                className="answer selected"
+                className="answer"
                 onClick={(e) => props.selectAnswer(props.answers[0], e)}
               >
                 {props.answers && props.answers[0] ? props.answers[0].text : ''}
@@ -38,7 +38,7 @@ function Quiz(props) {
 
             <button
               id="submitAnswerBtn"
-            onClick={() => props.postAnswer(props.selectedAnswer.answer_id, props.quiz_id)}>Submit answer</button>
+            onClick={() => props.postAnswer(props.selectedAnswer.answer_id, props.quiz_id)} disabled={!props.selectedAnswer.text}>Submit answer</button>
           </>
         ) : 'Loading next quiz...'
       }

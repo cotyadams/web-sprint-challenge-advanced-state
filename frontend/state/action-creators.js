@@ -1,6 +1,6 @@
 // ❗ You don't need to add extra action creators to achieve MVP
 import axios from "axios"
-import { MOVE_COUNTERCLOCKWISE, MOVE_CLOCKWISE, SET_IS_FETCHING,SET_QUIZ_INTO_STATE, SET_SELECTED_ANSWER, SET_INFO_MESSAGE, INPUT_CHANGE } from "./action-types"
+import { MOVE_COUNTERCLOCKWISE, MOVE_CLOCKWISE, SET_IS_FETCHING,SET_QUIZ_INTO_STATE, SET_SELECTED_ANSWER, SET_INFO_MESSAGE, INPUT_CHANGE, RESET_FORM} from "./action-types"
 export function moveClockwise(i) { 
   if (i === 5) {
     i = 0
@@ -20,7 +20,7 @@ export function moveCounterClockwise(i) {
 }
 
 export function selectAnswer(selectedAnswer, e) { 
-  document.querySelector('.selected').classList.remove('selected')
+  if (document.querySelector('.selected')) document.querySelector('.selected').classList.remove('selected')
   e.target.classList.add('selected')
   return {type: SET_SELECTED_ANSWER, payload: selectedAnswer}
 }
@@ -37,7 +37,8 @@ export function inputChange(e) {
   return {type: INPUT_CHANGE, payload: {name: e.target.id, value: e.target.value}}
  }
 
-export function resetForm() { 
+export function resetForm() {
+  return {type: RESET_FORM}
 }
 
 export const setIsFetching = (isFetching) => {
@@ -63,7 +64,7 @@ export function postAnswer(answer_id, quiz_id) {
   return function (dispatch) {
     axios.post('http://localhost:9000/api/quiz/answer', {answer_id: answer_id, quiz_id: quiz_id})
       .then((res) => {
-        console.log(res);
+        if (document.querySelector('.selected')) document.querySelector('.selected').classList.remove('selected')
         dispatch(setMessage(res.data.message))
         dispatch(fetchQuiz())
       }).catch((err) => {
@@ -78,8 +79,9 @@ export function postAnswer(answer_id, quiz_id) {
 export function postQuiz(question, truth, fal) {
   return function (dispatch) {
     axios.post('http://localhost:9000/api/quiz/new', { question_text: question, true_answer_text: truth, false_answer_text: fal })
-      .then((res) => {
-      console.log(res)
+      .then(() => {
+        dispatch(setMessage(`Congrats: "${question}" is a great question!`))
+        dispatch(resetForm())
     })
     // On successful POST:
     // - Dispatch the correct message to the the appropriate state

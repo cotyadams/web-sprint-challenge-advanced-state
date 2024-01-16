@@ -16,10 +16,28 @@ export function Form(props) {
   return (
     <form id="form" onSubmit={onSubmit}>
       <h2>Create New Quiz</h2>
-      <input maxLength={50} onChange={onChange} id="newQuestion" placeholder="Enter question" />
-      <input maxLength={50} onChange={onChange} id="newTrueAnswer" placeholder="Enter true answer" />
-      <input maxLength={50} onChange={onChange} id="newFalseAnswer" placeholder="Enter false answer" />
-      <button id="submitNewQuizBtn" type='submit'>Submit new quiz</button>
+      <input
+        maxLength={50}
+        onChange={onChange}
+        id="newQuestion"
+        placeholder="Enter question"
+        value={props.newQuestion}
+      />
+      <input
+        maxLength={50}
+        onChange={onChange}
+        id="newTrueAnswer"
+        placeholder="Enter true answer"
+        value={props.newTrueAnswer}
+      />
+      <input
+        maxLength={50}
+        onChange={onChange}
+        id="newFalseAnswer"
+        placeholder="Enter false answer"
+        value={props.newFalseAnswer}
+      />
+      <button id="submitNewQuizBtn" type='submit' disabled={!(props.newFalseAnswer && props.newTrueAnswer && props.newQuestion)}>Submit new quiz</button>
     </form>
   )
 }
