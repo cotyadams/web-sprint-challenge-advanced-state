@@ -19,7 +19,9 @@ export function moveCounterClockwise(i) {
   return {type: MOVE_COUNTERCLOCKWISE, payload: i}
 }
 
-export function selectAnswer(selectedAnswer) { 
+export function selectAnswer(selectedAnswer, e) { 
+  document.querySelector('.selected').classList.remove('selected')
+  e.target.classList.add('selected')
   return {type: SET_SELECTED_ANSWER, payload: selectedAnswer}
 }
 
@@ -35,7 +37,8 @@ export function inputChange(e) {
   return {type: INPUT_CHANGE, payload: {name: e.target.id, value: e.target.value}}
  }
 
-export function resetForm() { }
+export function resetForm() { 
+}
 
 export const setIsFetching = (isFetching) => {
   return {type: SET_IS_FETCHING, payload: isFetching}

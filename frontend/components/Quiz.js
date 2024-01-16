@@ -17,7 +17,7 @@ function Quiz(props) {
             <div id="quizAnswers">
               <div
                 className="answer selected"
-                onClick={() => props.selectAnswer(props.answers[0])}
+                onClick={(e) => props.selectAnswer(props.answers[0], e)}
               >
                 {props.answers && props.answers[0] ? props.answers[0].text : ''}
                 <button>
@@ -27,7 +27,7 @@ function Quiz(props) {
 
               <div
                 className="answer"
-                onClick={() => props.selectAnswer(props.answers[1])}
+                onClick={(e) => props.selectAnswer(props.answers[1], e)}
               >
                 {props.answers && props.answers[1] ? props.answers[1].text : ''}
                 <button>
